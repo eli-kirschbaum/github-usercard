@@ -4,14 +4,17 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get('https://api.github.com/users/eli-kirschbaum')
-  .then(resp => {
-    console.log(resp)
-  })
-  .catch(err => {
-    console.error(err);
-  })
-  .finally(() => console.log('Donezo'))
+// const getMyProfile = () => {
+//  axios.get('https://api.github.com/users/eli-kirschbaum')
+//  .then(resp => {
+//    console.log(resp)
+//  })
+//  .catch(err => {
+//    console.error(err);
+//  })
+//  .finally(() => console.log('Donezo'))
+//};
+
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -58,6 +61,9 @@ const followersArray = [];
       </div>
     </div>
 */
+const selector = '.cards';
+const entryPoint = document.querySelector(selector);
+
 function cardMaker(obj) {
   // variable declarations
   const card = document.createElement('div');
@@ -101,7 +107,20 @@ function cardMaker(obj) {
   following.textContent = `Following: ${obj.data.following}`;
   bio.textContent = `Bio: ${obj.data.bio}`;
 
+  return card;
 }
+const getMyProfile = () => {
+  axios.get('https://api.github.com/users/eli-kirschbaum')
+  .then(resp => {
+    const myProfile = cardMaker(resp);
+    entryPoint.appendChild(myProfile);
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  .finally(() => console.log('Donezo'))
+};
+
 
 /*
   List of LS Instructors Github username's:
