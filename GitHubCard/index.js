@@ -4,8 +4,14 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+const moreProfiles = ['eli-kirschbaum', 'tetondan', 'dustinmyers', 'justinmyers', 'justsml', 'luishrd', 'bigknell'];
 
-axios.get('https://api.github.com/users/eli-kirschbaum')
+moreProfiles.forEach(idx => {
+  getProfile([idx])
+})
+
+function getProfile(username) {
+  axios.get(`https://api.github.com/users/${username}`)
   .then(res => {
     document.querySelector('.cards').appendChild(cardMaker(res.data));
     //console.log(res)
@@ -13,6 +19,8 @@ axios.get('https://api.github.com/users/eli-kirschbaum')
   .catch(err => {
     console.error(err);
   })
+}
+
 
 
 
@@ -39,8 +47,6 @@ axios.get('https://api.github.com/users/eli-kirschbaum')
     Using that array, iterate over it, requesting data for each user, creating a new card for each
     user, and adding that card to the DOM.
 */
-
-const followersArray = [];
 
 /*
   STEP 3: Create a function that accepts a single object as its only argument.
