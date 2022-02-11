@@ -1,10 +1,17 @@
-// initial commit
-
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/eli-kirschbaum')
+  .then(resp => {
+    console.log(resp)
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  .finally(() => console.log('Donezo'))
 
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
@@ -51,6 +58,50 @@ const followersArray = [];
       </div>
     </div>
 */
+function cardMaker(obj) {
+  // variable declarations
+  const card = document.createElement('div');
+  const image = document.createElement('image');
+  const info = document.createElement('div');
+  const name = document.createElement('h3');
+  const username = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const profileLink = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+   
+  // hierarchy
+  card.appendChild(image);
+  card.appendChild(info);
+  info.appendChild(name);
+  info.appendChild(username);
+  info.appendChild(location);
+  info.appendChild(profile);
+  profile.appendChild(profileLink);
+  info.appendChild(followers);
+  info.appendChild(following);
+  info.appendChild(bio);
+
+  // classes
+  card.classList.add('card');
+  info.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  // attributes and text
+  image.src = obj.data.avatar_url;
+  name.textContent = `${obj.data.name}`;
+  username.textContent = `${obj.data.login}`;
+  location.textContent = `${obj.data.location}`;
+  profileLink.href = `${obj.data.html_url}`;
+  profileLink.textContent = `${obj.data.html_url}`;
+  followers.textContent = `Followers: ${obj.data.followers}`;
+  following.textContent = `Following: ${obj.data.following}`;
+  bio.textContent = `Bio: ${obj.data.bio}`;
+
+}
 
 /*
   List of LS Instructors Github username's:
