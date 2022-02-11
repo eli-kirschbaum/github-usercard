@@ -4,16 +4,16 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-// const getMyProfile = () => {
-//  axios.get('https://api.github.com/users/eli-kirschbaum')
-//  .then(resp => {
-//    console.log(resp)
-//  })
-//  .catch(err => {
-//    console.error(err);
-//  })
-//  .finally(() => console.log('Donezo'))
-//};
+
+axios.get('https://api.github.com/users/eli-kirschbaum')
+  .then(res => {
+    document.querySelector('.cards').appendChild(cardMaker(res.data));
+    //console.log(res)
+  })
+  .catch(err => {
+    console.error(err);
+  })
+
 
 
 /*
@@ -61,13 +61,13 @@ const followersArray = [];
       </div>
     </div>
 */
-const selector = '.cards';
-const entryPoint = document.querySelector(selector);
+//const selector = '.cards';
+//const entryPoint = document.querySelector(selector);
 
 function cardMaker(obj) {
   // variable declarations
   const card = document.createElement('div');
-  const image = document.createElement('image');
+  const image = document.createElement('img');
   const info = document.createElement('div');
   const name = document.createElement('h3');
   const username = document.createElement('p');
@@ -97,29 +97,20 @@ function cardMaker(obj) {
   username.classList.add('username');
 
   // attributes and text
-  image.src = obj.data.avatar_url;
-  name.textContent = `${obj.data.name}`;
-  username.textContent = `${obj.data.login}`;
-  location.textContent = `${obj.data.location}`;
-  profileLink.href = `${obj.data.html_url}`;
-  profileLink.textContent = `${obj.data.html_url}`;
-  followers.textContent = `Followers: ${obj.data.followers}`;
-  following.textContent = `Following: ${obj.data.following}`;
-  bio.textContent = `Bio: ${obj.data.bio}`;
+  image.src = obj.avatar_url;
+  name.textContent = obj.name;
+  username.textContent = obj.login;
+  location.textContent = obj.location
+  profileLink.href = obj.html_url
+  profileLink.textContent = 'Link to Profile'
+  followers.textContent = `Followers: ${obj.followers}`;
+  following.textContent = `Following: ${obj.following}`;
+  bio.textContent = `Bio: ${obj.bio}`;
 
   return card;
 }
-const getMyProfile = () => {
-  axios.get('https://api.github.com/users/eli-kirschbaum')
-  .then(resp => {
-    const myProfile = cardMaker(resp);
-    entryPoint.appendChild(myProfile);
-  })
-  .catch(err => {
-    console.error(err);
-  })
-  .finally(() => console.log('Donezo'))
-};
+
+
 
 
 /*
